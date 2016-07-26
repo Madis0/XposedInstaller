@@ -146,71 +146,71 @@
     <string name="download_test_version_not_shown">Testversioon on saadaval, kuid pole kuvatud sinu globaalsete või moodulipõhiste seadete tõttu.</string>
 
     <!-- Settings tab -->
-    <string name="settings_group_installation">Installation</string>
-    <string name="settings_install_mode">Installation mode</string>
-    <string name="install_mode_normal">Classical (write to /system directly)</string>
-    <string name="install_mode_recovery_auto">Recovery (flash zip automatically)</string>
-    <string name="install_mode_recovery_manual">Recovery (write zip to SD card, flash manually)</string>
-    <string name="settings_group_download">Download</string>
-    <string name="settings_enable_downloads">Enable downloads</string>
-    <string name="settings_enable_downloads_summary">Allow Xposed Installer to check for updates and new modules</string>
-    <string name="settings_release_type">Versions to be shown</string>
-    <string name="settings_group_experimental">Experimental</string>
-    <string name="settings_disable_resources">Disabled resource hooks</string>
-    <string name="settings_disable_resources_summary">Workaround for conflicts with theming engines\n<b>WARNING:</b> Modules which try to change resources will not work when this is enabled.</string>
-    <string name="settings_performance_experiment" tools:ignore="UnusedResources">Performance experiment</string>
-    <string name="settings_performance_experiment_summary" tools:ignore="UnusedResources">If you enable this, your system performance might either increase, decrease or stay the same. Feel free to try it and report back which effect you see (or if there is none at all). You need to reinstall the Framework and reboot after changing this.</string>
-    <string name="settings_group_app">Application</string>
-    <string name="settings_theme">Theme</string>
-    <string name="settings_theme_light">Light</string>
-    <string name="settings_theme_dark">Dark</string>
-    <string name="settings_theme_black">Black (useful for AMOLED screens)</string>
-    <string name="settings_default_view">Default view</string>
+    <string name="settings_group_installation">Installimine</string>
+    <string name="settings_install_mode">Installimisrežiim</string>
+    <string name="install_mode_normal">Klassikaline (kirjuta otse /system-isse)</string>
+    <string name="install_mode_recovery_auto">Taastus (flash\i zip automaatselt)</string>
+    <string name="install_mode_recovery_manual">Taastus (kirjuta zip SD-kaardile, flash\'i käsitsi)</string>
+    <string name="settings_group_download">Allalaadimine</string>
+    <string name="settings_enable_downloads">Luba allalaadimised</string>
+    <string name="settings_enable_downloads_summary">Luba Xposed installeril kontrollida uuendusi ja uusi mooduleid</string>
+    <string name="settings_release_type">Kuvatavad versioonid</string>
+    <string name="settings_group_experimental">Eksperimentaalne</string>
+    <string name="settings_disable_resources">Keelatud ressursikonksud</string>
+    <string name="settings_disable_resources_summary">Proovib vältida konflikte teemamootoritega\n<b>HOIATUS:</b> Moodulid, mis üritavad muuta ressursse ei toimi, kui see on lubatud.</string>
+    <string name="settings_performance_experiment" tools:ignore="UnusedResources">Jõudluseksperiment</string>
+    <string name="settings_performance_experiment_summary" tools:ignore="UnusedResources">Kui sa selle lubad, võib su süsteemi jõudlus paraneda, halveneda või jääda samaks. Võid vabalt järgi proovida ja teatada tagasi, mis muutusi sa näed (või kui midagi ei muutu). Sa pead taasinstallima raamistiku ja taaskäivitama pärast selle muutmist.</string>
+    <string name="settings_group_app">Rakendus</string>
+    <string name="settings_theme">Teema</string>
+    <string name="settings_theme_light">Hele</string>
+    <string name="settings_theme_dark">Tume</string>
+    <string name="settings_theme_black">Must (kasulik AMOLED ekraanidel)</string>
+    <string name="settings_default_view">Vaikimisi vaade</string>
 
     <!-- Support tab -->
-    <string name="support_modules_label">Support for modules</string>
-    <string name="support_modules_description">Long-click any module in the modules list and select \"%1$s\".</string>
-    <string name="support_framework_label">Framework/Installer support</string>
-    <string name="support_faq_label">FAQ/known issues</string>
-    <string name="support_donate_label">Donate</string>
-    <string name="support_donate_description">If you would like to say thanks for Xposed, you can donate to rovo89 here</string>
+    <string name="support_modules_label">Moodulite tugi</string>
+    <string name="support_modules_description">Koputa pikalt mõnel moodulil moodulite nimekirjas ja vali \"%1$s\".</string>
+    <string name="support_framework_label">Raamistiku/installija tugi</string>
+    <string name="support_faq_label">KKK/teadaolevad probleemid</string>
+    <string name="support_donate_label">Anneta</string>
+    <string name="support_donate_description">Kui soovid tänada Xposed'it, võid annetada rovo89-le siin</string>
 
     <!-- Logs tab  -->
-    <string name="logs_load_failed">Could not read log:</string>
-    <string name="logs_save_failed">Could not write log to SD card:</string>
-    <string name="sdcard_not_writable">SD card not found or not writable</string>
-    <string name="log_too_large">Log file is larger than %1$,d kB, skipped first %2$,d kB</string>
-    <string name="menuClearLog">Clear log now</string>
-    <string name="logs_cleared">Log successfully cleared</string>
-    <string name="logs_clear_failed">Could not clear the log:</string>
-    <string name="log_is_empty">Log is empty</string>
+    <string name="logs_load_failed">Ei saanud logi lugeda:</string>
+    <string name="logs_save_failed">Ei saanud logi SD-kaardile kirjutada:</string>
+    <string name="sdcard_not_writable">SD-kaarti ei leitud või pole kirjutatav</string>
+    <string name="log_too_large">Logifail on suurem kui %1$,d kB, esimesed %2$,d kB on vahele jäetud</string>
+    <string name="menuClearLog">Tühjenda logi nüüd</string>
+    <string name="logs_cleared">Logi edukalt tühjendatud</string>
+    <string name="logs_clear_failed">Ei saanud logi tühjendada:</string>
+    <string name="log_is_empty">Logi on tühi</string>
 
     <!-- About tab -->
-    <string name="about_developers_label">Main developers</string>
-    <string name="about_developers"><a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a> and <a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>\n<a href="http://forum.xda-developers.com/member.php?u=4756862">-BioHaZard-</a> and <a href="http://forum.xda-developers.com/member.php?u=5345056">dvdandroid</a> for bug fixes and Material Design</string>
-    <string name="about_developers_warning">Please do <b>not</b> contact us directly for support, use the link below.</string>
-    <string name="about_translator_label">Translator</string>
-    <string name="translator"></string>
-    <string name="about_version_label">Version</string>
-    <string name="about_source_label">Source code</string>
-    <string name="about_support_label">Get support at:</string>
-    <string name="about_libraries_label">Used libraries</string>
+    <string name="about_developers_label">Peamised arendajad</string>
+    <string name="about_developers"><a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a> ja <a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>\n<a href="http://forum.xda-developers.com/member.php?u=4756862">-BioHaZard-</a> ja <a href="http://forum.xda-developers.com/member.php?u=5345056">dvdandroid</a> veaparanduste ja Materjaalse disaini eest</string>
+    <string name="about_developers_warning">Palun <b>ära</b> kontakteeru meiega otse toe saamiseks, kasuta allpool olevat linki.</string>
+    <string name="about_translator_label">Tõlkija</string>
+    <string name="translator">Madis Otenurm</string>
+    <string name="about_version_label">Versioon</string>
+    <string name="about_source_label">Lähtekood</string>
+    <string name="about_support_label">Hangi tuge:</string>
+    <string name="about_libraries_label">Kasutatud teegid</string>
 
     <!-- DownloadView -->
-    <string name="download_view_download">Download</string>
-    <string name="download_view_install">Install</string>
-    <string name="download_view_cancel">Cancel</string>
-    <string name="download_view_no_url">No download URL available</string>
-    <string name="download_view_running">Download is running (%1$,d of %2$,d kB)</string>
-    <string name="download_view_waiting">Download is waiting</string>
-    <string name="download_view_successful">Download successful</string>
-    <string name="download_view_failed">Download failed (error %d)</string>
+    <string name="download_view_download">Laadi alla</string>
+    <string name="download_view_install">Installi</string>
+    <string name="download_view_cancel">Tühista</string>
+    <string name="download_view_no_url">Allalaadimise URL pole saadaval</string>
+    <string name="download_view_running">Allalaadimine käib (%1$,d\\%2$,d kB)</string>
+    <string name="download_view_waiting">Allalaadimine on ootel</string>
+    <string name="download_view_successful">Allalaadimine õnnestus</string>
+    <string name="download_view_failed">Allalaadimine ebaõnnestus (viga %d)</string>
 
     <!-- DownloadUtils -->
-    <string name="download_md5sum_incorrect">MD5 sum is incorrect (downloaded: %1$s, expected: %2$s)</string>
-    <string name="download_could_not_read_file">Could not read downloaded file: %s</string>
-    <string name="download_no_valid_apk">Downloaded file is not a valid APK (or incompatible)</string>
-    <string name="download_incorrect_package_name">Package name is incorrect (downloaded: %1$s, expected: %2$s)</string>
+    <string name="download_md5sum_incorrect">MD5 summa pole õige (allalaaditud: %1$s, oodatud: %2$s)</string>
+    <string name="download_could_not_read_file">Ei saanud lugeda allalaaditud faili: %s</string>
+    <string name="download_no_valid_apk">Allalaaditud fail ei ole sobiv APK (või ei ühildu)</string>
+    <string name="download_incorrect_package_name">Paki nimi pole õige (allalaaditud: %1$s, oodatud: %2$s)</string>
 
     <!-- RepoLoader -->
     <string name="repo_download_failed_http">Downloading %1$s failed: %2$d (%3$s)</string>
