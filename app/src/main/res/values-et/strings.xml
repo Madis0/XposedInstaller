@@ -49,8 +49,8 @@
     <string name="phone_not_compatible">Xposed ei ühildu (veel) Android\'i SDK versiooniga %1$d või sinu protsessori arhitektuuriga (%2$s).</string>
     <string name="not_tested_but_compatible">Xposed\'i pole testitud Android\'i SDK versiooniga %d, kuid see tundub olevat ühilduv. Sa võid proovida seda installida, kui soovid seiklusi.</string>
     <string name="reboot_failed">Taaskäivitamine ebaõnnestus. Palun kasuta seadme tavalist taaskäivitusfunktsiooni.</string>
-    <string name="auto_flash_note">%s peaks flash'ima automaatselt kohe, kui vajutad "OK".</string>
-    <string name="manual_flash_note">Palun flash\'i %s SD-kaardilt, et lõpetada operatsioon.</string>
+    <string name="auto_flash_note">%s peaks välgutama automaatselt kohe, kui vajutad "OK".</string>
+    <string name="manual_flash_note">Palun välguta %s SD-kaardilt, et lõpetada operatsioon.</string>
     <string name="reboot_confirmation">Kas soovid nüüd taaskäivitada?</string>
     <string name="reboot_recovery_confirmation">Kas soovid nüüd taaskäivitada taastusesse?</string>
     <string name="install_warning_title">Ole ettevaatlik!</string>
@@ -61,7 +61,7 @@
     <string name="uninstall_reverted">app_process on eelnevalt eemaldatud, kuid nüüd leiti versioon \"%s\". Kui sa ei oodanud vana faili taastamist, võid proovida eemaldada taastuse kaudu (automaatselt või käsitsi).</string>
     <string name="tap_to_dismiss">Koputa sulgemiseks</string>
     <string name="sdcard_location">SD-kaart: %s</string>
-    <string name="installation_lollipop">Xposed raamistik pole installitud. Palun tõmba viimane ZIP-fail XDA\'st ja flash\'i käsitsi taastuse kaudu.</string>
+    <string name="installation_lollipop">Xposed raamistik pole installitud. Palun tõmba viimane ZIP-fail XDA\'st ja välguta käsitsi taastuse kaudu.</string>
     <string name="installed_lollipop">Xposed raamistiku versioon %s on aktiivne.</string>
     <string name="installed_lollipop_inactive">Xposed raamistik versiooniga %s on installitud, aga pole aktiivne. Palun kontrolli logisid detailide nägemiseks.</string>
     <string name="modules_updates_available">Mooduli uuendus(ed) on saadaval</string>
@@ -149,15 +149,15 @@
     <string name="settings_group_installation">Installimine</string>
     <string name="settings_install_mode">Installimisrežiim</string>
     <string name="install_mode_normal">Klassikaline (kirjuta otse /system-isse)</string>
-    <string name="install_mode_recovery_auto">Taastus (flash\i zip automaatselt)</string>
-    <string name="install_mode_recovery_manual">Taastus (kirjuta zip SD-kaardile, flash\'i käsitsi)</string>
+    <string name="install_mode_recovery_auto">Taastus (välguta zip automaatselt)</string>
+    <string name="install_mode_recovery_manual">Taastus (kirjuta zip SD-kaardile, välguta käsitsi)</string>
     <string name="settings_group_download">Allalaadimine</string>
     <string name="settings_enable_downloads">Luba allalaadimised</string>
     <string name="settings_enable_downloads_summary">Luba Xposed installeril kontrollida uuendusi ja uusi mooduleid</string>
     <string name="settings_release_type">Kuvatavad versioonid</string>
     <string name="settings_group_experimental">Eksperimentaalne</string>
     <string name="settings_disable_resources">Keelatud ressursikonksud</string>
-    <string name="settings_disable_resources_summary">Proovib vältida konflikte teemamootoritega\n<b>HOIATUS:</b> Moodulid, mis üritavad muuta ressursse ei toimi, kui see on lubatud.</string>
+    <string name="settings_disable_resources_summary">Proovib vältida konflikte teemamootoritega\n<b>HOIATUS:</b> Moodulid, mis üritavad muuta ressursse ei toimi, kuni see on lubatud.</string>
     <string name="settings_performance_experiment" tools:ignore="UnusedResources">Jõudluseksperiment</string>
     <string name="settings_performance_experiment_summary" tools:ignore="UnusedResources">Kui sa selle lubad, võib su süsteemi jõudlus paraneda, halveneda või jääda samaks. Võid vabalt järgi proovida ja teatada tagasi, mis muutusi sa näed (või kui midagi ei muutu). Sa pead taasinstallima raamistiku ja taaskäivitama pärast selle muutmist.</string>
     <string name="settings_group_app">Rakendus</string>
@@ -213,70 +213,70 @@
     <string name="download_incorrect_package_name">Paki nimi pole õige (allalaaditud: %1$s, oodatud: %2$s)</string>
 
     <!-- RepoLoader -->
-    <string name="repo_download_failed_http">Downloading %1$s failed: %2$d (%3$s)</string>
-    <string name="repo_download_failed">Downloading %1$s failed: %2$s</string>
-    <string name="repo_load_failed">Cannot load repository from %1$s:\n%2$s</string>
-    <string name="choose_color">Choose a color…</string>
+    <string name="repo_download_failed_http">%1$s allalaadimine ebaõnnestus: %2$d (%3$s)</string>
+    <string name="repo_download_failed">%1$s allalaadimine ebaõnnestus: %2$s</string>
+    <string name="repo_load_failed">Varamu laadimine kohast %1$s ebaõnnestus:\n%2$s</string>
+    <string name="choose_color">Vali värv…</string>
 
-    <string name="warning_installed_on_external_storage">This module cannot be loaded because it\'s installed on the SD card, please move it to internal storage.</string>
-    <string name="warning_forward_locked">This module cannot be loaded because it\'s is forward-locked, please contact the module\'s developer.</string>
-    <string name="export_modules">Export enabled modules list</string>
-    <string name="import_modules">Import enabled modules list</string>
-    <string name="view">VIEW</string>
-    <string name="export_">Export…</string>
-    <string name="import_">Import…</string>
-    <string name="export_enabled_modules">Export enabled modules list</string>
-    <string name="import_enabled_modules">Import enabled modules list</string>
-    <string name="export_installed_modules">Export installed modules list</string>
-    <string name="import_installed_modules">Import installed modules list</string>
-    <string name="no_installed_modules">There isn\'t any installed module!</string>
-    <string name="enable_heads_up">Enable Heads-Up notification</string>
-    <string name="enable_heads_up_summary">This option enables heads up notification on new/updated module</string>
-    <string name="nav_bar_coloration">Colorate navigation bar</string>
-    <string name="no_backup_found">No backup found</string>
-    <string name="no_enabled_modules">There is any modules enabled</string>
+    <string name="warning_installed_on_external_storage">Seda moodulit ei saa laadida, kuna see on installitud SD-kaardile, palun liiguta see sisemällu.</string>
+    <string name="warning_forward_locked">Seda moodulit ei saa laadida, kuna see on edasi-lukustatud, palun kontakteeru mooduli arendajaga.</string>
+    <string name="export_modules">Ekspordi lubatud moodulite nimekiri</string>
+    <string name="import_modules">Impordi lubatud moodulite nimekiri</string>
+    <string name="view">VAADE</string>
+    <string name="export_">Ekspordi…</string>
+    <string name="import_">Impordi…</string>
+    <string name="export_enabled_modules">Ekspordi lubatud moodulite nimekiri</string>
+    <string name="import_enabled_modules">Impordi lubatud moodulite nimekiri</string>
+    <string name="export_installed_modules">Ekspordi installitud moodulite nimekiri</string>
+    <string name="import_installed_modules">Impordi installitud moodulite nimekiri</string>
+    <string name="no_installed_modules">Pole ühtegi installitud moodulit!</string>
+    <string name="enable_heads_up">Luba piiluv teade</string>
+    <string name="enable_heads_up_summary">See valik lubab piiluva teate uue/uuendatud mooduli korral</string>
+    <string name="nav_bar_coloration">Värvi navigatsiooniriba</string>
+    <string name="no_backup_found">Varundust ei leitud</string>
+    <string name="no_enabled_modules">Ükski moodul pole lubatud</string>
 
-    <string name="download_view_size">Size: %s KB</string>
-    <string name="share">Share with…</string>
-    <string name="back">Back</string>
-    <string name="loadingError">Error getting list of installers/uninstallers.\nCannot access Internet, or server bug</string>
+    <string name="download_view_size">Suurus: %s KB</string>
+    <string name="share">Jaga…</string>
+    <string name="back">Tagasi</string>
+    <string name="loadingError">Installerite/desinstallerite nimekirja saamisel tekkis viga.\nInternetile pole ligipääsu või serveriga on probleem</string>
     <string name="info">Info</string>
     <string name="infoInstaller">
-        Name: %1$s
+        Nimi: %1$s
         \nSDK: %2$d
-        \nArchitecture: %3$s
-        \nVersion: %4$s
+        \nArhitektuur: %3$s
+        \nVersioon: %4$s
     </string>
     <string name="infoUninstaller">
-        Name: %1$s
-        \nArchitecture: %2$s
-        \nDate: %3$s
+        Nimi: %1$s
+        \nArhitektuur: %2$s
+        \nKuupäev: %3$s
     </string>
-    <string name="downloadZipOk">%1$s downloaded correctly</string>
-    <string name="permissionGranted">Permission granted</string>
-    <string name="permissionNotGranted">This feature will not work without permission to write external storage.</string>
-    <string name="downloadUninstaller">Download uninstaller</string>
-    <string name="selectFile">Select downloaded file</string>
-    <string name="xposedZipNotFound">Zip not found, probably a new version released.</string>
-    <string name="warningArchitecture">HAVE YOU CHOSEN RIGHT XPOSED ZIP ARCHITECTURE?\nWrong zip can damage your phone!</string>
-    <string name="help">Help</string>
+    <string name="downloadZipOk">%1$s laaditi korralikult alla</string>
+    <string name="permissionGranted">Luba antud</string>
+    <string name="permissionNotGranted">See funktsioon ei tööta ilma välismälu kirjutamise loata.</string>
+    <string name="downloadUninstaller">Laadi alla eemaldaja</string>
+    <string name="selectFile">Vali allalaaditud fail</string>
+    <string name="xposedZipNotFound">Zip-i ei leitud, tõenäoliselt on väljastatud uuem versioon.</string>
+    <string name="warningArchitecture">KAS SA VALISID ÕIGE XPOSED ZIP-I ARHITEKTUURI?\nVale zip võib su telefoni kahtjustada!</string>
+    <string name="help">Abi</string>
     <string name="helpChoose">
-        How to choose correct zip file?\n
+        Kuidas valida õiget zip-faili?\n
 
         xposed-v*-sdk%%SDK%%-%%ARCH%%\n\n
 
-        Where:\n
-        %%SDK%% is your Android SDK version\n\n
-        %%ARCH%% is your device CPU architecture
+        Kus:\n
+        %%SDK%% on su Androidi SDK versioon\n\n
+        %%ARCH%% on su seadme protsessori arhitektuur
     </string>
-    <string name="newVersion">New version of Xposed Installer is available! Update it!</string>
-    <string name="update">Update</string>
-    <string name="choose_icon">Choose an icon</string>
-    <string name="custom_icon">Custom icon</string>
-    <string name="installationForbidden">Installation is not possible on this device. To install Xposed through this app, the device must run Android Lollipop or higher.</string>
-    <string name="installed_no_lollipop">Xposed Framework is installed.</string>
-    <string name="not_installed_no_lollipop">Xposed Framework is not installed.</string>
-    <string name="notify_module_update">Enable module update notification</string>
+    <string name="newVersion">Uus versioon Xposed installijast on saadaval! Uuenda seda!</string>
+    <string name="update">Uuenda</string>
+    <string name="choose_icon">Vali ikoon</string>
+    <string name="custom_icon">Kohandatud ikoon</string>
+    <string name="installationForbidden">Installimine pole võimalik sellel seadmel. Et installida Xposed'i selle rakenduse kaudu, peab su seade omama versiooni Android Lollipop või kõrgem.</string>
+    <string name="installed_no_lollipop">Xposed raamistik on installitud.</string>
+    <string name="not_installed_no_lollipop">Xposed raamistik pole installitud.</string>
+    <string name="notify_module_update">Luba mooduli uuenduse teade</string>
 
     <string name="md_back_label">Back</string>
     <string name="md_done_label">Done</string>
