@@ -1,13 +1,18 @@
 package de.robv.android.xposed.installer;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.SearchView;
@@ -18,6 +23,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CursorAdapter;
@@ -43,6 +49,7 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 import static android.content.Context.MODE_PRIVATE;
 
 public class DownloadFragment extends Fragment implements RepoListener, ModuleListener, SharedPreferences.OnSharedPreferenceChangeListener {
+    public static FragmentActivity sActivity;
     private SharedPreferences mPref;
     private DownloadsAdapter mAdapter;
     private String mFilterText;
@@ -53,6 +60,26 @@ public class DownloadFragment extends Fragment implements RepoListener, ModuleLi
     private StickyListHeadersListView mListView;
     private SharedPreferences mIgnoredUpdatesPref;
     private boolean changed = false;
+    private View backgroundList;
+    private BroadcastReceiver connectionListener = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+
+            if (backgroundList != null && mRepoLoader != null) {
+                if (networkInfo == null) {
+                    ((TextView) backgroundList.findViewById(R.id.list_status)).setText(R.string.no_connection_available);
+                    backgroundList.findViewById(R.id.progress).setVisibility(View.GONE);
+                } else {
+                    ((TextView) backgroundList.findViewById(R.id.list_status)).setText(R.string.update_download_list);
+                    backgroundList.findViewById(R.id.progress).setVisibility(View.VISIBLE);
+                }
+
+                mRepoLoader.triggerReload(true);
+            }
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,6 +109,8 @@ public class DownloadFragment extends Fragment implements RepoListener, ModuleLi
         if (mAdapter != null && mListView != null) {
             mListView.setAdapter(mAdapter);
         }
+
+        sActivity = getActivity();
     }
 
     @Override
@@ -93,6 +122,15 @@ public class DownloadFragment extends Fragment implements RepoListener, ModuleLi
             reloadItems();
             changed = !changed;
         }
+
+        getActivity().registerReceiver(connectionListener, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        getActivity().unregisterReceiver(connectionListener);
     }
 
     @Override
@@ -103,25 +141,37 @@ public class DownloadFragment extends Fragment implements RepoListener, ModuleLi
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_downloader, container, false);
-        mListView = (StickyListHeadersListView) v
-                .findViewById(R.id.listModules);
-        final SwipeRefreshLayout refreshLayout = (SwipeRefreshLayout) v
-                .findViewById(R.id.swiperefreshlayout);
+        backgroundList = v.findViewById(R.id.background_list);
+
+        mListView = (StickyListHeadersListView) v.findViewById(R.id.listModules);
+
+        final SwipeRefreshLayout refreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swiperefreshlayout);
         refreshLayout.setColorSchemeColors(XposedApp.getColor(getContext()));
-        refreshLayout.setOnRefreshListener(
-                new SwipeRefreshLayout.OnRefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        mRepoLoader.setSwipeRefreshLayout(refreshLayout);
-                        mRepoLoader.triggerReload(true);
-                    }
-                });
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mRepoLoader.setSwipeRefreshLayout(refreshLayout);
+                mRepoLoader.triggerReload(true);
+            }
+        });
         mRepoLoader.addListener(this, true);
         mModuleUtil.addListener(this);
         mListView.setAdapter(mAdapter);
+        mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (mListView.getChildAt(0) != null) {
+                    refreshLayout.setEnabled(mListView.getFirstVisiblePosition() == 0 && mListView.getChildAt(0).getTop() == 0);
+                }
+            }
+        });
 
         mListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -199,6 +249,7 @@ public class DownloadFragment extends Fragment implements RepoListener, ModuleLi
     private void setFilter(String filterText) {
         mFilterText = filterText;
         reloadItems();
+        backgroundList.setVisibility(View.GONE);
     }
 
     private void reloadItems() {

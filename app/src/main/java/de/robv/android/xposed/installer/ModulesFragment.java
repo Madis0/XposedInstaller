@@ -15,18 +15,20 @@ import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ListFragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -71,13 +73,13 @@ import de.robv.android.xposed.installer.util.ModuleUtil.InstalledModule;
 import de.robv.android.xposed.installer.util.ModuleUtil.ModuleListener;
 import de.robv.android.xposed.installer.util.NavUtil;
 import de.robv.android.xposed.installer.util.RepoLoader;
-import de.robv.android.xposed.installer.util.RootUtil;
 import de.robv.android.xposed.installer.util.ThemeUtil;
 
 import static android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS;
 import static de.robv.android.xposed.installer.XposedApp.WRITE_EXTERNAL_PERMISSION;
+import static de.robv.android.xposed.installer.XposedApp.createFolder;
 
-public class ModulesFragment extends ListFragment implements ModuleListener {
+public class ModulesFragment extends Fragment implements ModuleListener, AdapterView.OnItemClickListener {
     public static final String SETTINGS_CATEGORY = "de.robv.android.xposed.category.MODULE_SETTINGS";
     public static final String PLAY_STORE_PACKAGE = "com.android.vending";
     public static final String PLAY_STORE_LINK = "https://play.google.com/store/apps/details?id=%s";
@@ -103,8 +105,9 @@ public class ModulesFragment extends ListFragment implements ModuleListener {
             mAdapter.notifyDataSetChanged();
         }
     };
-    private RootUtil mRootUtil;
     private MenuItem mClickedMenuItem = null;
+    private ListView mListView;
+    private View mBackgroundList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -135,11 +138,9 @@ public class ModulesFragment extends ListFragment implements ModuleListener {
                 addHeader();
             }
         }
-        mRootUtil = new RootUtil();
         mAdapter = new ModuleAdapter(getActivity());
         reloadModules.run();
-        setListAdapter(mAdapter);
-        setEmptyText(getActivity().getString(R.string.no_xposed_modules_found));
+        getListView().setAdapter(mAdapter);
         registerForContextMenu(getListView());
         mModuleUtil.addListener(this);
 
@@ -155,8 +156,23 @@ public class ModulesFragment extends ListFragment implements ModuleListener {
         getListView().setDividerHeight(sixDp);
         getListView().setPadding(eightDp, toolBarDp + eightDp, eightDp, eightDp);
         getListView().setClipToPadding(false);
+        getListView().setOnItemClickListener(this);
+        getListView().setEmptyView(mBackgroundList);
 
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.list_fragment, container, false);
+
+        mListView = (ListView) view.findViewById(android.R.id.list);
+
+        mBackgroundList = view.findViewById(R.id.background_list);
+        ((ImageView) view.findViewById(R.id.background_list_iv)).setImageResource(R.drawable.ic_nav_modules);
+        ((TextView) view.findViewById(R.id.list_status)).setText(R.string.no_xposed_modules_found);
+
+        return view;
     }
 
     private void addHeader() {
@@ -197,12 +213,8 @@ public class ModulesFragment extends ListFragment implements ModuleListener {
             return true;
         }
 
-        String backupPath = Environment.getExternalStorageDirectory()
-                + "/XposedInstaller";
-
-        File enabledModulesPath = new File(backupPath, "enabled_modules.list");
-        File installedModulesPath = new File(backupPath, "installed_modules.list");
-        File targetDir = new File(backupPath);
+        File enabledModulesPath = new File(createFolder(), "enabled_modules.list");
+        File installedModulesPath = new File(createFolder(), "installed_modules.list");
         File listModules = new File(XposedApp.ENABLED_MODULES_LIST_FILE);
 
         mClickedMenuItem = item;
@@ -222,8 +234,7 @@ public class ModulesFragment extends ListFragment implements ModuleListener {
                 }
 
                 try {
-                    if (!targetDir.exists())
-                        targetDir.mkdir();
+                    createFolder();
 
                     FileInputStream in = new FileInputStream(listModules);
                     FileOutputStream out = new FileOutputStream(enabledModulesPath);
@@ -255,8 +266,7 @@ public class ModulesFragment extends ListFragment implements ModuleListener {
                 }
 
                 try {
-                    if (!targetDir.exists())
-                        targetDir.mkdir();
+                    createFolder();
 
                     FileWriter fw = new FileWriter(installedModulesPath);
                     BufferedWriter bw = new BufferedWriter(fw);
@@ -355,13 +365,6 @@ public class ModulesFragment extends ListFragment implements ModuleListener {
                         new InstallApkUtil(getContext(), info).execute();
                     }
                 }, DownloadsUtil.MIME_TYPES.APK);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        ModuleUtil.getInstance().setModuleEnabled(m.packageName, true);
-                    }
-                }, 2500);
             }
         }
 
@@ -386,7 +389,7 @@ public class ModulesFragment extends ListFragment implements ModuleListener {
     public void onDestroyView() {
         super.onDestroyView();
         mModuleUtil.removeListener(this);
-        setListAdapter(null);
+        getListView().setAdapter(null);
         mAdapter = null;
     }
 
@@ -398,26 +401,6 @@ public class ModulesFragment extends ListFragment implements ModuleListener {
     @Override
     public void onInstalledModulesReloaded(ModuleUtil moduleUtil) {
         getActivity().runOnUiThread(reloadModules);
-    }
-
-    @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        String packageName = (String) v.getTag();
-        if (packageName == null)
-            return;
-
-        if (packageName.equals(NOT_ACTIVE_NOTE_TAG)) {
-            ((WelcomeActivity) getActivity()).switchFragment(0);
-            return;
-        }
-
-        Intent launchIntent = getSettingsIntent(packageName);
-        if (launchIntent != null)
-            startActivity(launchIntent);
-        else
-            Toast.makeText(getActivity(),
-                    getActivity().getString(R.string.module_no_ui),
-                    Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -498,7 +481,7 @@ public class ModulesFragment extends ListFragment implements ModuleListener {
     private InstalledModule getItemFromContextMenuInfo(ContextMenuInfo menuInfo) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
         int position = info.position - getListView().getHeaderViewsCount();
-        return (position >= 0) ? (InstalledModule) getListAdapter().getItem(position) : null;
+        return (position >= 0) ? (InstalledModule) getListView().getAdapter().getItem(position) : null;
     }
 
     private Intent getSettingsIntent(String packageName) {
@@ -521,6 +504,28 @@ public class ModulesFragment extends ListFragment implements ModuleListener {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setClassName(ris.get(0).activityInfo.packageName, ris.get(0).activityInfo.name);
         return intent;
+    }
+
+    public ListView getListView() {
+        return mListView;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        String packageName = (String) view.getTag();
+        if (packageName == null)
+            return;
+
+        if (packageName.equals(NOT_ACTIVE_NOTE_TAG)) {
+            ((WelcomeActivity) getActivity()).switchFragment(0);
+            return;
+        }
+
+        Intent launchIntent = getSettingsIntent(packageName);
+        if (launchIntent != null)
+            startActivity(launchIntent);
+        else
+            Toast.makeText(getActivity(), getActivity().getString(R.string.module_no_ui), Toast.LENGTH_LONG).show();
     }
 
     private class ModuleAdapter extends ArrayAdapter<InstalledModule> {

@@ -13,7 +13,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 37
-        versionName "3.0 alpha4 by dvdandroid - 21/07/16"
+        versionName "3.0 alpha4 by dvdandroid - 05/08/16"
         project.ext.set("archivesBaseName", "XposedInstaller_by_dvdandroid");
     }
 
@@ -33,7 +33,6 @@ dependencies {
     compile 'com.android.support:design:23.4.0'
     compile 'com.android.support:customtabs:23.4.0'
     compile 'com.afollestad.material-dialogs:commons:0.8.6.1'
-    compile 'com.afollestad:inquiry:2.0.2'
     compile 'com.github.machinarius:preferencefragment:0.1.1'
     compile 'se.emilsjolander:stickylistheaders:2.7.0'
     compile 'eu.chainfire:libsuperuser:1.0.0.201607041850'

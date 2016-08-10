@@ -94,6 +94,7 @@
     <string name="module_is_not_activated_yet">Xposed module is not activated yet</string>
     <string name="module_is_not_activated_yet_detailed">%s has been installed, but is not activated yet.</string>
     <string name="activate_and_reboot">Activate and reboot</string>
+    <string name="activate_only">Activate only</string>
     <string name="module_activated">Xposed module has been activated</string>
     <string name="module_empty_description">(no description provided)</string>
     <string name="module_no_ui">This module does not provide a user interface</string>
@@ -260,15 +261,6 @@
     <string name="xposedZipNotFound">Zip not found, probably a new version released.</string>
     <string name="warningArchitecture">HAVE YOU CHOSEN THE RIGHT XPOSED ZIP ARCHITECTURE?\nWrong zip can damage your phone!</string>
     <string name="help">Help</string>
-    <string name="helpChoose">
-        How to choose correct zip file?\n
-
-        xposed-v*-sdk%%SDK%%-%%ARCH%%\n\n
-
-        Where:\n
-        %%SDK%% is your Android SDK version\n\n
-        %%ARCH%% is your device CPU architecture
-    </string>
     <string name="newVersion">New version of Xposed Installer is available! Update it!</string>
     <string name="update">Update</string>
     <string name="choose_icon">Choose an icon</string>
@@ -359,5 +351,11 @@
     <string name="original_framework">Your device is compatible with the official Xposed Framework.</string>
     <string name="goto_framework">Click here to go to the right section for your device</string>
     <string name="save">Save</string>
+    <string name="download_location">Download location</string>
+    <string name="download_location_summ">Download location for APK files (modules only)</string>
+    <string name="restart_needed">Restart needed</string>
+    <string name="cache_cleaned">App\'s cache has been cleaned. Restart is needed</string>
+    <string name="update_download_list">The download\'s module list will be loaded in few seconds</string>
+    <string name="no_connection_available">No connection available</string>
 
 </resources>

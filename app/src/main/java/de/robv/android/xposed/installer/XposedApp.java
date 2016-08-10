@@ -50,12 +50,13 @@ public class XposedApp extends Application implements ActivityLifecycleCallbacks
     @SuppressLint("SdCardPath")
     public static final String BASE_DIR = "/data/data/de.robv.android.xposed.installer/";
     public static final String ENABLED_MODULES_LIST_FILE = XposedApp.BASE_DIR + "conf/enabled_modules.list";
-    private static final File XPOSED_PROP_FILE_SYSTEMLESS = new File("/xposed/xposed.prop");
-    private static final File XPOSED_PROP_FILE_SYSTEMLESS_2 = new File("/vendor/xposed.prop");
-    private static final File XPOSED_PROP_FILE_SYSTEMLESS_3 = new File("/su/xposed/system/xposed.prop");
+    private static final File XPOSED_PROP_FILE_SYSTEMLESS = new File("/magisk/xposed/system/xposed.prop");
+    private static final File XPOSED_PROP_FILE_SYSTEMLESS_2 = new File("/su/xposed/system/xposed.prop");
+    private static final File XPOSED_PROP_FILE_SYSTEMLESS_3 = new File("/vendor/xposed.prop");
+    private static final File XPOSED_PROP_FILE_SYSTEMLESS_4 = new File("/xposed/xposed.prop");
     private static final File XPOSED_PROP_FILE = new File("/system/xposed.prop");
     public static int WRITE_EXTERNAL_PERMISSION = 69;
-    public static String THIS_APK_VERSION = "1469115000001";
+    public static String THIS_APK_VERSION = "1470390300001";
     public static int[] iconsValues = new int[]{R.mipmap.ic_launcher, R.mipmap.ic_launcher_hjmodi, R.mipmap.ic_launcher_rovo, R.mipmap.ic_launcher_rovo_old, R.mipmap.ic_launcher_staol};
     private static Pattern PATTERN_APP_PROCESS_VERSION = Pattern.compile(".*with Xposed support \\(version (.+)\\).*");
     private static XposedApp mInstance = null;
@@ -76,6 +77,14 @@ public class XposedApp extends Application implements ActivityLifecycleCallbacks
         } else {
             action.run();
         }
+    }
+
+    public static File createFolder() {
+        File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/XposedInstaller/");
+
+        if (!dir.exists()) dir.mkdir();
+
+        return dir;
     }
 
     public static Integer getXposedVersion() {
@@ -191,6 +200,10 @@ public class XposedApp extends Application implements ActivityLifecycleCallbacks
         return Color.HSVToColor(hsv);
     }
 
+    public static String getDownloadPath() {
+        return getPreferences().getString("download_location", Environment.getExternalStorageDirectory() + "/XposedInstaller");
+    }
+
     public void onCreate() {
         super.onCreate();
         mInstance = this;
@@ -254,7 +267,7 @@ public class XposedApp extends Application implements ActivityLifecycleCallbacks
     private void reloadXposedProp() {
         Map<String, String> map = Collections.emptyMap();
         if (XPOSED_PROP_FILE.canRead() || XPOSED_PROP_FILE_SYSTEMLESS.canRead() || XPOSED_PROP_FILE_SYSTEMLESS_2.canRead()
-                || XPOSED_PROP_FILE_SYSTEMLESS_3.canRead()) {
+                || XPOSED_PROP_FILE_SYSTEMLESS_3.canRead() || XPOSED_PROP_FILE_SYSTEMLESS_4.canRead() ) {
             File file = null;
             if (XPOSED_PROP_FILE.canRead()) {
                 file = XPOSED_PROP_FILE;
@@ -264,6 +277,8 @@ public class XposedApp extends Application implements ActivityLifecycleCallbacks
                 file = XPOSED_PROP_FILE_SYSTEMLESS_2;
             } else if (XPOSED_PROP_FILE_SYSTEMLESS_3.canRead()) {
                 file = XPOSED_PROP_FILE_SYSTEMLESS_3;
+            } else if (XPOSED_PROP_FILE_SYSTEMLESS_4.canRead()) {
+                file = XPOSED_PROP_FILE_SYSTEMLESS_4;
             }
 
             if (file != null) {
